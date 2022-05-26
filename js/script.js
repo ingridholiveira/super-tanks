@@ -14,7 +14,7 @@ function play() {
     var points = 0;
     var saved = 0;
     var lost = 0;
-    var powerBar=3;
+    var powerBar = 3;
     var game = {};
     var velocity = 5;
     var positionY = parseInt(Math.random() * 334);
@@ -23,9 +23,21 @@ function play() {
         DOWN: 40,
         SPACE: 32,
     }
-    
+
 
     game.press = [];
+    var soundShoot = document.getElementById("soundShoot");
+    var soundExplosion = document.getElementById("soundExplosion");
+    var music = document.getElementById("music");
+    var soundOver = document.getElementById("soundOver");
+    var soundLost = document.getElementById("soundLost");
+    var soundRescue = document.getElementById("soundRescue");
+
+    music.addEventListener("ended", function () {
+        music.currentTime = 0;
+        music.play();
+    }, false);
+    music.play();
 
     $(document).keydown(function (e) {
         game.press[e.which] = true;
@@ -118,6 +130,7 @@ function play() {
 
         if (canShoot == true) {
 
+            soundShoot.play();
             canShoot = false;
 
             topo = parseInt($("#player").css("top"))
@@ -182,6 +195,7 @@ function play() {
         if (impact3.length > 0) {
 
             points = points + 100;
+            velocity = velocity + 0.3;
             enemy1X = parseInt($("#enemy1").css("left"));
             enemy1Y = parseInt($("#enemy1").css("top"));
 
@@ -197,6 +211,7 @@ function play() {
         if (impact4.length > 0) {
 
             points = points + 50;
+            velocity = velocity + 0.2;
             enemy2X = parseInt($("#enemy2").css("left"));
             enemy2Y = parseInt($("#enemy2").css("top"));
             $("#enemy2").remove();
@@ -211,6 +226,7 @@ function play() {
         if (impact5.length > 0) {
 
             saved++;
+            soundRescue.play();
             reposFriend();
             $("#friend").remove();
         }
@@ -230,6 +246,8 @@ function play() {
     }
 
     function explosion1(enemy1X, enemy1Y) {
+
+        soundExplosion.play();
         $("#background").append("<div id='explosion1'></div");
         $("#explosion1").css("background-image", "url(../game/imgs/explosao.png)");
         var div = $("#explosion1");
@@ -253,6 +271,7 @@ function play() {
 
     function explosion2(enemy2X, enemy2Y) {
 
+        soundExplosion.play();
         $("#background").append("<div id='explosion2'></div");
         $("#explosion2").css("background-image", "url(../game/imgs/explosao.png)");
         var div2 = $("#explosion2");
@@ -275,6 +294,8 @@ function play() {
     }
 
     function explosion3(friendX, friendY) {
+
+        soundLost.play();
         $("#background").append("<div id='explosion3' class='anima4'></div");
         $("#explosion3").css("top", friendY);
         $("#explosion3").css("left", friendX);
@@ -323,35 +344,35 @@ function play() {
     }
 
     function scoreboard() {
-	
+
         $("#scoreboard").html("<h2> Pontos: " + points + " Salvos: " + saved + " Perdidos: " + lost + "</h2>");
-        
+
     }
 
     function power() {
-	
-		if (powerBar==3) {
-			
-			$("#power").css("background-image", "url(../game/imgs/energia3.png)");
-		}
-	
-		if (powerBar==2) {
-			
-			$("#power").css("background-image", "url(../game/imgs/energia2.png)");
-		}
-	
-		if (powerBar==1) {
-			
-			$("#power").css("background-image", "url(../game/imgs/energia1.png)");
-		}
-	
-		if (powerBar==0) {
-			
-			$("#power").css("background-image", "url(../game/imgs/energia0.png)");
-			
-			//Game Over
-		}
-	
-	}
+
+        if (powerBar == 3) {
+
+            $("#power").css("background-image", "url(../game/imgs/energia3.png)");
+        }
+
+        if (powerBar == 2) {
+
+            $("#power").css("background-image", "url(../game/imgs/energia2.png)");
+        }
+
+        if (powerBar == 1) {
+
+            $("#power").css("background-image", "url(../game/imgs/energia1.png)");
+        }
+
+        if (powerBar == 0) {
+
+            $("#power").css("background-image", "url(../game/imgs/energia0.png)");
+
+            //Game Over
+        }
+
+    }
 
 }
