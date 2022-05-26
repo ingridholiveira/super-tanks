@@ -42,6 +42,7 @@ function play() {
         moveEnemy2();
         moveFriend();
         impact();
+        scoreboard();
     }
 
     function moviment() {
@@ -175,7 +176,7 @@ function play() {
 
         if (impact3.length > 0) {
 
-
+            points = points + 100;
             enemy1X = parseInt($("#enemy1").css("left"));
             enemy1Y = parseInt($("#enemy1").css("top"));
 
@@ -190,6 +191,7 @@ function play() {
 
         if (impact4.length > 0) {
 
+            points = points + 50;
             enemy2X = parseInt($("#enemy2").css("left"));
             enemy2Y = parseInt($("#enemy2").css("top"));
             $("#enemy2").remove();
@@ -203,12 +205,14 @@ function play() {
 
         if (impact5.length > 0) {
 
+            saved++;
             reposFriend();
             $("#friend").remove();
         }
 
         if (impact6.length > 0) {
 
+            lost++;
             friendX = parseInt($("#friend").css("left"));
             friendY = parseInt($("#friend").css("top"));
             explosion3(friendX, friendY);
@@ -311,6 +315,12 @@ function play() {
 
         }
 
+    }
+
+    function scoreboard() {
+	
+        $("#scoreboard").html("<h2> Pontos: " + points + " Salvos: " + saved + " Perdidos: " + lost + "</h2>");
+        
     }
 
 }
