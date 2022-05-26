@@ -7,12 +7,14 @@ function play() {
     $("#background").append("<div id='enemy2'></div>");
     $("#background").append("<div id='friend' class='anima3'></div>");
     $("#background").append("<div id='scoreboard'></div>");
+    $("#background").append("<div id='power'></div>");
 
     var canShoot = true;
     var end = false;
     var points = 0;
     var saved = 0;
     var lost = 0;
+    var powerBar=3;
     var game = {};
     var velocity = 5;
     var positionY = parseInt(Math.random() * 334);
@@ -43,6 +45,7 @@ function play() {
         moveFriend();
         impact();
         scoreboard();
+        power();
     }
 
     function moviment() {
@@ -154,6 +157,7 @@ function play() {
 
         if (impact1.length > 0) {
 
+            powerBar--;
             enemy1X = parseInt($("#enemy1").css("left"));
             enemy1Y = parseInt($("#enemy1").css("top"));
             explosion1(enemy1X, enemy1Y);
@@ -166,6 +170,7 @@ function play() {
 
         if (impact2.length > 0) {
 
+            powerBar--;
             enemy2X = parseInt($("#enemy2").css("left"));
             enemy2Y = parseInt($("#enemy2").css("top"));
             explosion2(enemy2X, enemy2Y);
@@ -322,5 +327,31 @@ function play() {
         $("#scoreboard").html("<h2> Pontos: " + points + " Salvos: " + saved + " Perdidos: " + lost + "</h2>");
         
     }
+
+    function power() {
+	
+		if (powerBar==3) {
+			
+			$("#power").css("background-image", "url(../game/imgs/energia3.png)");
+		}
+	
+		if (powerBar==2) {
+			
+			$("#power").css("background-image", "url(../game/imgs/energia2.png)");
+		}
+	
+		if (powerBar==1) {
+			
+			$("#power").css("background-image", "url(../game/imgs/energia1.png)");
+		}
+	
+		if (powerBar==0) {
+			
+			$("#power").css("background-image", "url(../game/imgs/energia0.png)");
+			
+			//Game Over
+		}
+	
+	}
 
 }
